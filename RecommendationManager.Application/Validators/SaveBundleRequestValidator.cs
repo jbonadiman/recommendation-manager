@@ -1,13 +1,16 @@
-﻿using RecommendationManager.Application.Models.Books;
+﻿using FluentValidation;
+using RecommendationManager.Application.Models.Books;
 
-namespace RecommendationManager.Application.Validator;
+namespace RecommendationManager.Application.Validators;
 
-public class SaveBundleRequestValidator : Validator<SaveBundleRequest>
+public class SaveBundleRequestValidator : AbstractValidator<SaveBundleRequest>
 {
     public SaveBundleRequestValidator()
     {
-        RuleFor(x => x)
-            .NotNull()
-            .SetValidator(new SaveRequestValidator());
+        RuleFor(req => req.Name)
+            .NotEmpty();
+
+        RuleForEach(req => req.Items)
+            .NotEmpty();
     }
 }

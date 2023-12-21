@@ -1,6 +1,6 @@
-namespace Function.Entities;
+namespace RecommendationManager.Domain;
 
-public class Book
+public record Book
 {
     public string? Id { get; set; }
 

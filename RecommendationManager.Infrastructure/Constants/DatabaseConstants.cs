@@ -1,4 +1,4 @@
-namespace Function.Constants;
+namespace RecommendationManager.Infrastructure.Constants;
 
 public class DatabaseConstants
 {

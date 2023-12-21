@@ -1,15 +1,16 @@
-
-using System;
 using AutoMapper;
-using Function.Entities;
-using Function.Models.Books;
+using RecommendationManager.Application.Models.Books;
+using RecommendationManager.Domain;
 
-namespace Function.Utils;
+namespace RecommendationManager.Application.Mappings;
 
 public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
+        // SaveBundleRequest -> BookBundle
+        CreateMap<SaveBundleRequest, BookBundle>();
+
         // Book -> CreateRequest
         CreateMap<Book, CreateRequest>();
 
@@ -19,15 +20,19 @@ public class AutoMapperProfile : Profile
 
         // UpdateRequest -> Book
         CreateMap<UpdateRequest, Book>()
-            .ForAllMembers(x => x.Condition(
-                (src, dest, prop) =>
-                {
-                    // ignore both null & empty string properties
-                    if (prop is null) return false;
-                    if (prop.GetType() == typeof(string) && string.IsNullOrEmpty((string)prop)) return false;
+            .ForAllMembers(x =>
+                x.Condition(
+                    (_, _, prop) =>
+                    {
+                        // ignore both null & empty string properties
+                        if (prop is null)
+                        {
+                            return false;
+                        }
 
-                    return true;
-                }
-            ));
+                        return prop.GetType() != typeof(string) ||
+                               !string.IsNullOrEmpty((string)prop);
+                    }
+                ));
     }
 }

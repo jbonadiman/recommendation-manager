@@ -1,11 +1,10 @@
-using System;
 using System.Globalization;
 
-namespace Function.Exceptions;
+namespace RecommendationManager.Application.Exceptions;
 
 public class AppException : Exception
 {
-    public AppException() : base() {}
+    public AppException() {}
 
     public AppException(string message) : base(message) { }
 

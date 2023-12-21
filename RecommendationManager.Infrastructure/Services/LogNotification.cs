@@ -1,6 +1,20 @@
-﻿namespace RecommendationManager.Infrastructure.Services;
+﻿using Microsoft.Extensions.Logging;
+using RecommendationManager.Application.Interfaces;
 
-public class LogNotification
+namespace RecommendationManager.Infrastructure.Services;
+
+public class LogNotification : INotificationService
 {
-    
+    private readonly ILogger<LogNotification> _logger;
+
+    public LogNotification(ILogger<LogNotification> logger)
+    {
+        _logger = logger;
+    }
+
+    public Task SendAsync(string message)
+    {
+        _logger.LogInformation("notification: {msg}", message);
+        return Task.CompletedTask;
+    }
 }

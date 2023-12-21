@@ -1,7 +1,7 @@
 ﻿namespace RecommendationManager.Domain;
 
-public record Bundle
+public record BookBundle
 {
     public string? Name { get; set; }
-    public IEnumerable<Book> Items { get; set; } = Enumerable.Empty<Book>();
+    public IEnumerable<string> Items { get; set; } = Enumerable.Empty<string>();
 }
